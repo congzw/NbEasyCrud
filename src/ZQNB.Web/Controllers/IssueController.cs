@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using ZQNB.Web.Models;
 
@@ -8,7 +9,8 @@ namespace ZQNB.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var models = GetAll();
+            return View(models);
         }
         
         public ActionResult Add()
@@ -98,6 +100,18 @@ namespace ZQNB.Web.Controllers
         {
             //todo
             return null;
+        }
+
+        protected IList<IssueViewModel> GetAll()
+        {
+            //todo
+            var guids = GuidHelper.CreateMockGuidQueue(10);
+            var issueViewModels = new List<IssueViewModel>();
+            for (int i = 0; i < 10; i++)
+            {
+                issueViewModels.Add(new IssueViewModel() { Id = guids .Dequeue(), Subject = i.ToString("0000")});
+            }
+            return issueViewModels;
         }
 
         protected MessageResult Delete(object model)

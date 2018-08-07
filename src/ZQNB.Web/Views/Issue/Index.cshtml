@@ -1,7 +1,24 @@
-﻿@model dynamic
+﻿@model IEnumerable<IssueViewModel>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+<h3>Show All</h3>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Subject</th>
+            <th>Body</th>
+            <th>Assigned To</th>
+        </tr>
+    </thead>
+    <tbody class="row-link" data-link="row">
+        @foreach (var issue in Model)
+        {
+            <tr>
+                <td>@issue.Id</td>
+                <td>@issue.Subject</td>
+                <td>@issue.Body</td>
+                <td>@issue.AssignedToUserID</td>
+            </tr>
+        }
+    </tbody>
+</table>
