@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ZQNB.Web.Models
@@ -13,10 +14,32 @@ namespace ZQNB.Web.Models
         //[Required]
         //public IssueType IssueType { get; set; }
 
-        [Required, Display(Name = "Assigned To")]
+        [Display(Name = "Assigned To")]
         public string AssignedToUserID { get; set; }
 
-        [Required]
         public string Body { get; set; }
+    }
+
+    public class MockData
+    {
+        public MockData()
+        {
+            Issues = new List<IssueViewModel>();
+            InitIssues();
+        }
+
+        private void InitIssues()
+        {
+            var guids = GuidHelper.CreateMockGuidQueue(10);
+            var issueViewModels = new List<IssueViewModel>();
+            for (int i = 0; i < 10; i++)
+            {
+                issueViewModels.Add(new IssueViewModel() { Id = guids.Dequeue(), Subject = i.ToString("0000"), Body = "BODY..."});
+            }
+            Issues = issueViewModels;
+        }
+
+        public IList<IssueViewModel> Issues { get; set; }
+    
     }
 }

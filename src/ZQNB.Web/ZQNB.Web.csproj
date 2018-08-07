@@ -89,10 +89,38 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\Site.css" />
+    <Content Include="Content\libs\bootstrap\ubuntu.theme.css" />
     <Content Include="Content\libs\bootstrap\bootstrap-theme.css" />
     <Content Include="Content\libs\bootstrap\bootstrap.css" />
+    <Content Include="Content\libs\angular\angular.js" />
+    <Content Include="Content\libs\bootstrap\bootstrap.js" />
+    <None Include="Content\libs\jquery\jquery-1.10.2.intellisense.js" />
+    <Content Include="Content\libs\jquery\jquery-1.10.2.js" />
+    <None Include="Content\libs\jquery\jquery.validate-vsdoc.js" />
+    <Content Include="Content\libs\jquery\jquery.validate.js" />
+    <Content Include="Content\libs\jquery\jquery.validate.unobtrusive.js" />
+    <Content Include="Content\libs\modernizr-2.6.2.js" />
+    <Content Include="Content\libs\respond.js" />
+    <Content Include="Content\libs\rowlink.js" />
+    <Content Include="Content\libs\underscore.js" />
+    <Content Include="Content\scripts\bootstrapAlerts.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
+    <Content Include="Views\Shared\EditorTemplates\Angular\IssueType.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Angular\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Angular\Object.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Angular\ReadOnly.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Angular\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Angular\UserID.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\IssueType.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MultilineText.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Object.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ReadOnly.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\UserID.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Guid.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Guid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -104,21 +132,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AlertExtensions.cs" />
+    <Compile Include="Models\BootstrapHelpers.cs" />
     <Compile Include="Models\CrudViewModel.cs" />
     <Compile Include="Models\GuidHelper.cs" />
     <Compile Include="Models\IssueViewModel.cs" />
     <Compile Include="Models\MessageResult.cs" />
+    <Compile Include="Models\SimpleMapToExtensions.cs" />
     <Compile Include="Models\StandardJsonResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Issue\AssignmentStatsWidget.cshtml" />
-    <Content Include="Views\Issue\CreatedByYouWidget.cshtml" />
     <Content Include="Views\Issue\New.cshtml" />
     <Content Include="Views\Issue\View.cshtml" />
-    <Content Include="Views\Issue\YourIssuesWidget.cshtml" />
     <Content Include="Views\Issue\Index.cshtml" />
     <Content Include="Views\Issue\Add.cshtml" />
     <Content Include="Views\Issue\Edit.cshtml" />

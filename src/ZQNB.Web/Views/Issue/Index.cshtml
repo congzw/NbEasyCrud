@@ -1,24 +1,56 @@
 ﻿@model IEnumerable<IssueViewModel>
 
 <h3>Show All</h3>
+
+
+<a href="@Url.Action("Add", "Issue")"
+   class="btn btn-primary">
+    创建
+</a>
+<hr />
+
 <table class="table table-hover">
     <thead>
-        <tr>
-            <th>Id</th>
-            <th>Subject</th>
-            <th>Body</th>
-            <th>Assigned To</th>
-        </tr>
+    <tr>
+        <th>Subject</th>
+        <th>Id</th>
+        <th>Body</th>
+        <th>Assigned To</th>
+        <th>操作</th>
+    </tr>
     </thead>
-    <tbody class="row-link" data-link="row">
-        @foreach (var issue in Model)
-        {
-            <tr>
-                <td>@issue.Id</td>
-                <td>@issue.Subject</td>
-                <td>@issue.Body</td>
-                <td>@issue.AssignedToUserID</td>
-            </tr>
-        }
+    <tbody>
+    @foreach (var issue in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(@issue.Subject, "Edit", "Issue", routeValues: new {id = @issue.Id}, htmlAttributes: null)</td>
+            <td>@issue.Id</td>
+            <td>@issue.Body</td>
+            <td>@issue.AssignedToUserID</td>
+            <td>
+                
+                <a href="@Url.Action("Edit", "Issue", routeValues: new {id = @issue.Id})"
+                   class="btn btn-primary">
+                    编辑
+                </a>
+                @using (Html.BeginForm("Delete", "Issue", new { id = issue.Id }, FormMethod.Post, new { @class = "delete-form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-warning">删除</button>
+                }
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
+
+@section scripts
+{
+    <script>
+        $(function() {
+            $(".delete-form").on("submit", function () {
+                return confirm("确定要删除此条记录吗？");
+            });
+        });
+    </script>
+}

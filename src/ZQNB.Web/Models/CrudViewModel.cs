@@ -2,7 +2,11 @@
 
 namespace ZQNB.Web.Models
 {
-    public interface ICrudViewModel
+    public interface ICrudViewModel : IGuidPk
+    {
+    }
+
+    public interface IGuidPk
     {
         Guid Id { get; set; }
     }
