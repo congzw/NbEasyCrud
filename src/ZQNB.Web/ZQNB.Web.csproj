@@ -126,32 +126,48 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseCrudController.cs" />
-    <Compile Include="Controllers\IssueController.cs" />
+    <Compile Include="Controllers\CrudController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IssueController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AlertExtensions.cs" />
     <Compile Include="Models\BootstrapHelpers.cs" />
-    <Compile Include="Models\CrudViewModel.cs" />
+    <Compile Include="Models\CrudViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CrudViewModelMeta.cs" />
     <Compile Include="Models\GuidHelper.cs" />
+    <Compile Include="Models\INbEntity.cs" />
+    <Compile Include="Models\ISimpleRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\IssueViewModel.cs" />
     <Compile Include="Models\MessageResult.cs" />
     <Compile Include="Models\SimpleMapToExtensions.cs" />
     <Compile Include="Models\StandardJsonResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_TempBacks\IssueController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Issue\New.cshtml" />
-    <Content Include="Views\Issue\View.cshtml" />
-    <Content Include="Views\Issue\Index.cshtml" />
-    <Content Include="Views\Issue\Add.cshtml" />
-    <Content Include="Views\Issue\Edit.cshtml" />
+    <Content Include="_TempBacks\Issue\New.cshtml" />
+    <Content Include="_TempBacks\Issue\View.cshtml" />
+    <Content Include="_TempBacks\Issue\Index.cshtml" />
+    <Content Include="_TempBacks\Issue\Add.cshtml" />
+    <Content Include="_TempBacks\Issue\Edit.cshtml" />
     <Content Include="Views\Shared\_Alerts.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Crud\Index.cshtml" />
+    <Content Include="Views\Shared\_Crud\Add.cshtml" />
+    <Content Include="Views\Shared\_Crud\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

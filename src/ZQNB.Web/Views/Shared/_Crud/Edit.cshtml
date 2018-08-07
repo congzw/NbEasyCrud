@@ -1,0 +1,24 @@
+﻿@model dynamic
+@{
+    var meta = (CrudViewModelMeta)ViewBag.CrudViewModelMeta;
+    var classInfo = meta.ClassInfo;
+    //var classColumnInfos = classInfo.ColumnInfos;
+    var headMessage = string.Format("{0}：编辑", classInfo.Caption);
+    ViewBag.Title = headMessage;
+    var controllerName = meta.Controller;
+}
+<h2>@headMessage</h2>
+<hr />
+
+@using (Html.BeginForm("Edit", controllerName, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.EditorForModel()
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="保存" class="btn btn-primary" />
+            <a href="@Url.Action("Index", controllerName)" class="btn btn-link">返回</a>
+        </div>
+    </div>
+}

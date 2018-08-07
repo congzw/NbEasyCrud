@@ -88,6 +88,23 @@ namespace ZQNB.Web.Models
             }
         }
         
+        public static Dictionary<string, object> GetKeyValueDictionary<T>(T obj)
+        {
+            Dictionary<string, object> result = new Dictionary<string, object>();
+            if (obj != null)
+            {
+                //获取类型信息
+                Type t = typeof(T);
+                PropertyInfo[] propertyInfos = t.GetProperties();
+
+                foreach (PropertyInfo var in propertyInfos)
+                {
+                    result.Add(var.Name, var.GetValue(obj, null));
+                }
+            }
+            return result;
+        }
+
         /// <summary>
         /// 是否是简单类型
         /// </summary>
