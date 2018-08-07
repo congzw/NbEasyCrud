@@ -147,6 +147,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\IssueViewModel.cs" />
+    <Compile Include="Models\_Mock\MemeoryRepository.cs" />
     <Compile Include="Models\MessageResult.cs" />
     <Compile Include="Models\SimpleMapToExtensions.cs" />
     <Compile Include="Models\StandardJsonResult.cs" />

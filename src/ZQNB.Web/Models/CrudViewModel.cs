@@ -42,11 +42,11 @@ namespace ZQNB.Web.Models
     //    where TViewModel : ICrudViewModel, new()
     //    where TEntity : INbEntity<Guid>
     //{
-    //    private readonly ISimpleRepository _simpleRepository;
+    //    private readonly ISimpleRepository SimpleRepository;
 
     //    protected CrudViewModelRepository(ISimpleRepository simpleRepository)
     //    {
-    //        _simpleRepository = simpleRepository;
+    //        SimpleRepository = simpleRepository;
     //    }
 
     //    public IList<dynamic> GetAll()
@@ -77,14 +77,14 @@ namespace ZQNB.Web.Models
     //            return messageResult;
     //        }
 
-    //        var entity = _simpleRepository.Get<TEntity>(id);
+    //        var entity = SimpleRepository.Get<TEntity>(id);
     //        if (entity == null)
     //        {
     //            messageResult.Message = "没有找到记录：" + id;
     //            return messageResult;
     //        }
             
-    //        _simpleRepository.Delete(entity);
+    //        SimpleRepository.Delete(entity);
 
     //        messageResult.Message = "删除成功";
     //        messageResult.Success = true;
@@ -100,7 +100,7 @@ namespace ZQNB.Web.Models
 
     //    public IList<TViewModel> GetAllVos()
     //    {
-    //        var entities = _simpleRepository.Query<TEntity>().ToList();
+    //        var entities = SimpleRepository.Query<TEntity>().ToList();
     //        var vos = new List<TViewModel>();
     //        foreach (var entity in entities)
     //        {
@@ -113,7 +113,7 @@ namespace ZQNB.Web.Models
 
     //    public TViewModel GetVo(Guid id)
     //    {
-    //        var entity = _simpleRepository.Get<TEntity>(id);
+    //        var entity = SimpleRepository.Get<TEntity>(id);
     //        if (entity == null)
     //        {
     //            return default(TViewModel);
@@ -135,7 +135,7 @@ namespace ZQNB.Web.Models
 
     //        var entity = model.Create<TEntity>();
     //        model.CopyTo(entity);
-    //        _simpleRepository.Add(entity);
+    //        SimpleRepository.Add(entity);
 
     //        messageResult.Success = true;
     //        messageResult.Message = "添加成功";
@@ -154,7 +154,7 @@ namespace ZQNB.Web.Models
     //            return messageResult;
     //        }
 
-    //        var theOne = _simpleRepository.Get<TEntity>(model.Id);
+    //        var theOne = SimpleRepository.Get<TEntity>(model.Id);
     //        if (theOne == null)
     //        {
     //            messageResult.Message = "没有找到记录：" + model.Id;

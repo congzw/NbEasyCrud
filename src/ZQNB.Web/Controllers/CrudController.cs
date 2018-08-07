@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using ZQNB.Web.Models;
+using ZQNB.Web.Models._Mock;
 
 namespace ZQNB.Web.Controllers
 {
@@ -211,12 +212,21 @@ namespace ZQNB.Web.Controllers
             return this.GetType().Name.Replace("Controller", "");
         }
 
-        private ISimpleRepository _simpleRepository;
+        private static ISimpleRepository _simpleRepository;
         private ISimpleRepository GetRepository()
         {
             if (_simpleRepository == null)
             {
-                _simpleRepository = new MockSimpleRepository();
+                var memeoryRepository = new MemeoryRepository();
+                
+                var guids = GuidHelper.CreateMockGuidQueue(10);
+                var issueViewModels = new List<IssueViewModel>();
+                for (int i = 0; i < 10; i++)
+                {
+                    issueViewModels.Add(new IssueViewModel() { Id = guids.Dequeue(), Subject = i.ToString("0000"), Body = "BODY..."});
+                }
+                memeoryRepository.InitFor(issueViewModels);
+                _simpleRepository = memeoryRepository;
             }
             return _simpleRepository;
         }
