@@ -125,7 +125,6 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\BaseCrudController.cs" />
     <Compile Include="Controllers\CrudController.cs">
       <SubType>Code</SubType>
     </Compile>
