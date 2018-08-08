@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZQNB.Web.Models
+namespace ZQNB.Common.Data
 {
     public interface INbEntity<TPk>
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace ZQNB.Web.Models
+namespace ZQNB.Common
 {
     public static class SimpleMapToExtensions
     {

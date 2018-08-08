@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using ZQNB.Common;
 
 namespace ZQNB.Web.Models
 {

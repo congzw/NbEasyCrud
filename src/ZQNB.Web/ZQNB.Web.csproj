@@ -137,19 +137,8 @@
     </Compile>
     <Compile Include="Models\AlertExtensions.cs" />
     <Compile Include="Models\BootstrapHelpers.cs" />
-    <Compile Include="Models\CrudViewModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Models\CrudViewModelMeta.cs" />
-    <Compile Include="Models\GuidHelper.cs" />
-    <Compile Include="Models\INbEntity.cs" />
-    <Compile Include="Models\ISimpleRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Models\IssueViewModel.cs" />
     <Compile Include="Models\_Mock\MemeoryRepository.cs" />
-    <Compile Include="Models\MessageResult.cs" />
-    <Compile Include="Models\SimpleMapToExtensions.cs" />
     <Compile Include="Models\StandardJsonResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_TempBacks\IssueController.cs" />
@@ -177,6 +166,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZQNB.Common\ZQNB.Common.csproj">
+      <Project>{d84a2769-1e24-44dc-a7b2-5be8fc848606}</Project>
+      <Name>ZQNB.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

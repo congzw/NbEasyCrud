@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ZQNB.Common;
-using ZQNB.Common.Data;
 
-namespace ZQNB.Web.Models._Mock
+namespace ZQNB.Common.Data._Mock
 {
     public class MemeoryRepository : ISimpleRepository
     {

@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace ZQNB.Web.Models
+namespace ZQNB.Common.Cruds
 {
     public class CrudViewModelMeta
     {

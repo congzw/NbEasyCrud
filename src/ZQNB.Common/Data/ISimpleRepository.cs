@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace ZQNB.Web.Models
+namespace ZQNB.Common.Data
 {
     /// <summary>
     /// 简化的通用仓储的接口声明

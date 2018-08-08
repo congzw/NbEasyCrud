@@ -1,4 +1,4 @@
-﻿namespace ZQNB.Web.Models
+﻿namespace ZQNB.Common
 {
     /// <summary>
     /// 自定义返回结果

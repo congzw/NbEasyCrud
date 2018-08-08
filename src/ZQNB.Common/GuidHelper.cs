@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ZQNB.Web.Models
+namespace ZQNB.Common
 {
     public class GuidHelper
     {
