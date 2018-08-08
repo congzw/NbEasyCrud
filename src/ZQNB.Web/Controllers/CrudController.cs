@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Web.Mvc;
 using ZQNB.Common;
 using ZQNB.Common.Cruds;
@@ -19,13 +21,13 @@ namespace ZQNB.Web.Controllers
         public ActionResult Index()
         {
             var models = CallGetAll();
-            return View("_Crud/Index", models);
+            return View("_CrudIndex", models);
         }
 
         public ActionResult Add()
         {
             var viewModel = new TViewModel();
-            return View("_Crud/Add", viewModel);
+            return View("_CrudAdd", viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -33,13 +35,13 @@ namespace ZQNB.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("_Crud/Add", viewModel);
+                return View("_CrudAdd", viewModel);
             }
 
             var messageResult = CallAdd(viewModel);
             if (!messageResult.Success)
             {
-                return View("_Crud/Add", viewModel).WithError(messageResult.Message);
+                return View("_CrudAdd", viewModel).WithError(messageResult.Message);
             }
 
             return RedirectToAction("Index").WithSuccess(messageResult.Message);
@@ -59,7 +61,7 @@ namespace ZQNB.Web.Controllers
             {
                 return RedirectToAction("Index").WithError("没有找到记录：" + id);
             }
-            return View("_Crud/Edit", viewModel);
+            return View("_CrudEdit", viewModel);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -67,13 +69,13 @@ namespace ZQNB.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("_Crud/Edit", viewModel);
+                return View("_CrudEdit", viewModel);
             }
 
             var messageResult = CallEdit(viewModel);
             if (!messageResult.Success)
             {
-                return View("_Crud/Edit", viewModel).WithError(messageResult.Message);
+                return View("_CrudEdit", viewModel).WithError(messageResult.Message);
             }
 
             return RedirectToAction("Index").WithSuccess(messageResult.Message);
@@ -81,6 +83,8 @@ namespace ZQNB.Web.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            ProcessMySelectListItems();
+
             ViewBag.CrudViewModelMeta = GetCrudViewModelMeta();
             base.OnActionExecuting(filterContext);
         }
@@ -244,6 +248,25 @@ namespace ZQNB.Web.Controllers
             messageResult.Success = true;
             messageResult.Data = model.Id;
             return messageResult;
+        }
+
+        /// <summary>
+        /// 当需要为多个属性设置参照集合时，通过property来区分不同的集合
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="getItems"></param>
+        protected void AddSelectListItemsForProperty<TProp>(Expression<Func<TViewModel, TProp>> expression, Func<List<MySelectListItem>> getItems)
+        {
+            //var memberExpression = expression.Body as MemberExpression ?? ((UnaryExpression)expression.Body).Operand as MemberExpression;
+            MemberExpression memberExpression = (MemberExpression)expression.Body;
+            var property = memberExpression.Member.Name;
+            var items = getItems();
+            MySelectListItem.TrySetMySelectListItems(items, property);
+        }
+
+        protected virtual void ProcessMySelectListItems()
+        {
+            //todo
         }
 
         protected virtual string GetControllerName()

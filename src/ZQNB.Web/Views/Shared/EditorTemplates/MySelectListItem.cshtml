@@ -1,0 +1,17 @@
+﻿@model dynamic
+@{
+    var modelMetadata = ViewData.ModelMetadata;
+    var property = modelMetadata.PropertyName;
+    var items = MySelectListItem.TryGetMySelectListItems(property);
+    var modelValue = Model == null ? string.Empty : Model.ToString();
+    var options = items.Select(t => new SelectListItem
+    {
+        Text = t.Text,
+        Value = t.Value,
+        Selected = t.Value == modelValue
+    })
+    .ToArray();
+}
+@*@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewData.ModelMetadata))
+<hr/>*@
+@Html.DropDownList("", options, new { @class = "form-control" })

@@ -13,12 +13,21 @@ namespace ZQNB.Common.Data._Mock
 
         public Dictionary<Type, IList<object>> Datas { get; set; }
 
-        public MemeoryRepository InitFor<T>(IList<T> list)
+        //public MemeoryRepository InitFor<T>(IList<T> list)
+        //{
+        //    var type = typeof (T);
+        //    Datas[type] = list.Cast<object>().ToList();
+        //    return this;
+        //}
+
+        public MemeoryRepository InitFor<T>(Func<IList<T>> action)
         {
-            var type = typeof (T);
+            var type = typeof(T);
+            var list = action();
             Datas[type] = list.Cast<object>().ToList();
             return this;
         }
+
 
         private IList<T> GetList<T>()
         {

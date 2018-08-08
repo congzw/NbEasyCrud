@@ -154,10 +154,12 @@
     <Content Include="Views\Shared\_Alerts.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Crud\Index.cshtml" />
-    <Content Include="Views\Shared\_Crud\Add.cshtml" />
-    <Content Include="Views\Shared\_Crud\Edit.cshtml" />
+    <Content Include="Views\Shared\_CrudIndex.cshtml" />
+    <Content Include="Views\Shared\_CrudAdd.cshtml" />
+    <Content Include="Views\Shared\_CrudEdit.cshtml" />
     <None Include="readme.md" />
+    <Content Include="Views\Shared\EditorTemplates\MySelectListItem.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MySelectListItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

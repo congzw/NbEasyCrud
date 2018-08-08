@@ -27,6 +27,7 @@
     <tbody>
         @foreach (var issue in Model)
         {
+            //todo fix by hint
             var keyValueDictionary = MyModelHelper.GetKeyValueDictionary(issue);
             var itemId = keyValueDictionary["Id"];
             <tr>
