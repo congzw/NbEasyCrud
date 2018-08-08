@@ -25,11 +25,11 @@ namespace ZQNB.Web.Models
         [AdditionalMetadata("Tooltip", "The title of the item")]
         [Display(Name = "分配给")]
         public string AssignedToUserID { get; set; }
-        
+
         [UIHint("MySelectListItem")]
         [Display(Name = "分类")]
         public Guid CategoryId { get; set; }
-        
+
         [Display(Name = "内容")]
         public string Body { get; set; }
     }
@@ -45,6 +45,12 @@ namespace ZQNB.Web.Models
     }
 
     public class IssueCategory : INbEntity<Guid>
+    {
+        public virtual Guid Id { get; set; }
+        public virtual string Name { get; set; }
+    }
+
+    public class IssueUser : INbEntity<Guid>
     {
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }

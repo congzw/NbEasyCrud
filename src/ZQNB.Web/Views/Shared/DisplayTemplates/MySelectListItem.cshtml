@@ -12,6 +12,4 @@
     })
     .ToArray();
 }
-@*@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewData.ModelMetadata))
-<hr/>*@
-@Html.DropDownList("", options, new { @class = "form-control" })
+@Html.DropDownList("", options, new { @class = "form-control", disabled = true })

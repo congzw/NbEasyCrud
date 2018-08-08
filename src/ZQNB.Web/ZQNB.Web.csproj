@@ -121,6 +121,7 @@
     <Content Include="Views\Shared\EditorTemplates\Guid.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Guid.cshtml" />
+    <Content Include="_TempBacks\_CrudIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -160,6 +161,8 @@
     <None Include="readme.md" />
     <Content Include="Views\Shared\EditorTemplates\MySelectListItem.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MySelectListItem.cshtml" />
+    <Content Include="Views\Shared\_CrudIndexRow.cshtml" />
+    <Content Include="Views\Shared\_CrudIndexHeader.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -150,6 +151,29 @@ namespace ZQNB.Common
                 }
                 _notProcessPerpertyBaseTypes = value;
             }
+        }
+        
+        /// <summary>
+        /// 获取集合的单项类型
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        public static Type GetTypeFromCollection(IEnumerable collection)
+        {
+            Type type = collection.GetType();
+            if (type.IsGenericType)
+            {
+                return type.GetInterfaces()
+                  .Where(t => t.IsGenericType)
+                  .Single(t => t.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                  .GetGenericArguments().Last();
+            }
+            if (collection.GetType().IsArray)
+            {
+                return type.GetElementType();
+            }
+            // Who knows?
+            return null;
         }
     }
 }

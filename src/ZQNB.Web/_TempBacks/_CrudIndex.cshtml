@@ -1,0 +1,66 @@
+﻿@model IEnumerable<dynamic>
+@{
+    var meta = (CrudViewModelMeta)ViewBag.CrudViewModelMeta;
+    var classInfo = meta.ClassInfo;
+    var classColumnInfos = classInfo.ColumnInfos;
+    ViewBag.Title = classInfo.Caption;
+    var headMessage = string.Format("{0}列表", classInfo.Caption);
+    var controllerName = meta.Controller;
+}
+
+<h3>@headMessage</h3>
+<a href="@Url.Action("Add", controllerName)"
+   class="btn btn-primary">
+    创建
+</a>
+<hr />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            @foreach (var columnInfo in classColumnInfos)
+            {
+                <th>@columnInfo.Caption</th>
+            }
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var issue in Model)
+        {
+            //todo fix by hint
+            var keyValueDictionary = MyModelHelper.GetKeyValueDictionary(issue);
+            var itemId = keyValueDictionary["Id"];
+            <tr>
+                @foreach (var columnInfo in classColumnInfos)
+                {
+                    var value = keyValueDictionary[columnInfo.Name];
+                    <td>@value</td>
+                }
+                <td>
+                    <span style="float: left">
+                        <a href="@Url.Action("Edit", controllerName, routeValues: new {id = itemId})" class="btn btn-primary">
+                            <i class="ace-icon fa fa-pencil-square-o bigger-125"></i>编辑
+                        </a>
+                    </span>
+                    <span style="float: left">
+                        @using (Html.BeginForm("Delete", controllerName, new { id = itemId }, FormMethod.Post, new { @class = "delete-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-warning"><i class="ace-icon fa fa-trash-o bigger-125"></i>删除</button>
+                        }
+                    </span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".delete-form").on("submit", function () {
+                return confirm("确定要删除此条记录吗？");
+            });
+        });
+    </script>
+}

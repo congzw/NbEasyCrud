@@ -17,14 +17,18 @@ namespace ZQNB.Web.Controllers
             AddSelectListItemsForProperty(x => x.AssignedToUserID, () =>
             {
                 var mySelectListItems = new List<MySelectListItem>();
-                mySelectListItems.Add(new MySelectListItem() { Text = string.Empty, Value = string.Empty });
+                var repository = ResolveRepository();
+                var entities = repository.Query<IssueUser>().ToList();
 
-                for (int i = 1; i <= 3; i++)
+                mySelectListItems.Add(new MySelectListItem() { Text = "未指定", Value = string.Empty });
+
+                foreach (var entity in entities)
                 {
-                    var mySelectListItem = new MySelectListItem();
-                    mySelectListItem.Text = "用户" + i.ToString("000");
-                    mySelectListItem.Value = i.ToString("000");
-                    mySelectListItems.Add(mySelectListItem);
+                    mySelectListItems.Add(new MySelectListItem
+                    {
+                        Text = entity.Name,
+                        Value = entity.Id.ToString()
+                    });
                 }
                 return mySelectListItems;
             });
@@ -32,12 +36,11 @@ namespace ZQNB.Web.Controllers
 
             AddSelectListItemsForProperty(x => x.CategoryId, () =>
             {
-                var repository = ResolveRepository();
-
-                var issueCategories = repository.Query<IssueCategory>().ToList();
-                
                 var mySelectListItems = new List<MySelectListItem>();
-                mySelectListItems.Add(new MySelectListItem() { Text = string.Empty, Value = string.Empty });
+                var repository = ResolveRepository();
+                var issueCategories = repository.Query<IssueCategory>().ToList();
+
+                mySelectListItems.Add(new MySelectListItem() { Text = "未指定", Value = string.Empty });
 
                 foreach (var issueCategory in issueCategories)
                 {
@@ -97,9 +100,10 @@ namespace ZQNB.Web.Controllers
 
                 memeoryRepository.InitFor(() =>
                 {
+                    //return new List<Issue>();
                     var guids = GuidHelper.CreateMockGuidQueue(10);
                     var issueViewModels = new List<Issue>();
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 1; i <= 10; i++)
                     {
                         issueViewModels.Add(new Issue() { Id = guids.Dequeue(), Subject = i.ToString("0000"), Body = "BODY..." });
                     }
@@ -117,6 +121,20 @@ namespace ZQNB.Web.Controllers
                     }
                     return issueCategories;
                 });
+
+
+
+                memeoryRepository.InitFor(() =>
+                {
+                    var guids = GuidHelper.CreateMockGuidQueue(3);
+                    var users = new List<IssueUser>();
+                    for (int i = 1; i <= 3; i++)
+                    {
+                        users.Add(new IssueUser() { Id = guids.Dequeue(), Name = "用户" + i.ToString("0000") });
+                    }
+                    return users;
+                });
+
 
                 _simpleRepository = memeoryRepository;
             }

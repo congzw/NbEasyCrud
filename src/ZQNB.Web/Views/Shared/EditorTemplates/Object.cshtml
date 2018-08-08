@@ -1,5 +1,6 @@
 ﻿@model dynamic
-
+@*@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewData.ModelMetadata.Properties))
+<hr/>*@
 @foreach (var prop in ViewData.ModelMetadata.Properties
     .Where(p => p.ShowForEdit))
 {

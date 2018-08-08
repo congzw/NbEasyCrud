@@ -1,0 +1,8 @@
+﻿@model ModelMetadata
+<tr>
+    @foreach (var prop in Model.Properties.Where(p => p.ShowForEdit))
+    {
+        <th>@prop.DisplayName</th>
+    }
+    <th>操作</th>
+</tr>
