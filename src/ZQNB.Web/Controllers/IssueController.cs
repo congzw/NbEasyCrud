@@ -6,7 +6,7 @@ using ZQNB.Web.Models;
 
 namespace ZQNB.Web.Controllers
 {
-    public class IssueController : CrudController<IssueViewModel, IssueViewModel>
+    public class IssueController : CrudController<IssueViewModel, Issue>
     {
         #region for test mock
         
@@ -55,10 +55,10 @@ namespace ZQNB.Web.Controllers
                 var memeoryRepository = new MemeoryRepository();
 
                 var guids = GuidHelper.CreateMockGuidQueue(10);
-                var issueViewModels = new List<IssueViewModel>();
+                var issueViewModels = new List<Issue>();
                 for (int i = 0; i < 10; i++)
                 {
-                    issueViewModels.Add(new IssueViewModel() { Id = guids.Dequeue(), Subject = i.ToString("0000"), Body = "BODY..." });
+                    issueViewModels.Add(new Issue() { Id = guids.Dequeue(), Subject = i.ToString("0000"), Body = "BODY..." });
                 }
                 memeoryRepository.InitFor(issueViewModels);
                 _simpleRepository = memeoryRepository;
