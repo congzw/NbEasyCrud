@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using ZQNB.Common.Cruds;
 using ZQNB.Common.Data;
 
@@ -9,6 +10,7 @@ namespace ZQNB.Web.Models
     [DisplayName("问题")]
     public class IssueViewModel : ICrudViewModel
     {
+        [HiddenInput]
         [Display(Name = "主键")]
         public Guid Id { get; set; }
         
@@ -18,8 +20,7 @@ namespace ZQNB.Web.Models
         
         [Display(Name = "分配给")]
         public string AssignedToUserID { get; set; }
-
-
+        
         [Display(Name = "内容")]
         public string Body { get; set; }
     }

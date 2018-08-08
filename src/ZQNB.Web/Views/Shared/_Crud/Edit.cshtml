@@ -1,4 +1,5 @@
-﻿@model dynamic
+﻿@using Newtonsoft.Json
+@model dynamic
 @{
     var meta = (CrudViewModelMeta)ViewBag.CrudViewModelMeta;
     var classInfo = meta.ClassInfo;
@@ -6,6 +7,13 @@
     var headMessage = string.Format("{0}：编辑", classInfo.Caption);
     ViewBag.Title = headMessage;
     var controllerName = meta.Controller;
+
+
+    var modelMetadata = ViewData.ModelMetadata;
+    var json = JsonConvert.SerializeObject(modelMetadata);
+    <p>@Html.Raw(json)</p>
+    <hr />
+
 }
 <h2>@headMessage</h2>
 <hr />
