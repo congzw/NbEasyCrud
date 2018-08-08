@@ -10,15 +10,15 @@
     }
     <td>
         <span style="float: left">
-            <a href="@Url.Action("Edit", controllerName, routeValues: new {id = itemId})" class="btn btn-primary">
-                <i class="ace-icon fa fa-pencil-square-o bigger-125"></i>编辑
+            <a href="@Url.Action("Edit", controllerName, new {id = itemId})" class="btn btn-sm btn-primary">
+                <i class="ace-icon fa fa-pencil-square-o"></i>编辑
             </a>
         </span>
         <span style="float: left">
-            @using (Html.BeginForm("Delete", controllerName, new { id = itemId }, FormMethod.Post, new { @class = "delete-form" }))
+            @using (Html.BeginForm("Delete", controllerName, new {id = itemId}, FormMethod.Post, new {@class = "delete-form"}))
             {
                 @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-warning"><i class="ace-icon fa fa-trash-o bigger-125"></i>删除</button>
+                <button type="submit" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-trash-o"></i>删除</button>
             }
         </span>
     </td>
