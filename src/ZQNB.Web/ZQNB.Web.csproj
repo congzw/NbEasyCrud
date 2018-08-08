@@ -139,9 +139,11 @@
     <Compile Include="Models\AlertExtensions.cs" />
     <Compile Include="Models\BootstrapHelpers.cs" />
     <Compile Include="Models\IssueViewModel.cs" />
+    <Compile Include="Models\MvcExtensions.cs" />
     <Compile Include="Models\_Mock\MemeoryRepository.cs" />
     <Compile Include="Models\StandardJsonResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_TempBacks\CrudViewModelMeta.cs" />
     <Compile Include="_TempBacks\IssueController.cs" />
   </ItemGroup>
   <ItemGroup>

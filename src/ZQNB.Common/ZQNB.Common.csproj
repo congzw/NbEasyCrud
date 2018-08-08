@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cruds\CrudViewModel.cs" />
-    <Compile Include="Cruds\CrudViewModelMeta.cs" />
     <Compile Include="Cruds\MySelectListItem.cs" />
     <Compile Include="Data\_Mock\MemeoryRepository.cs" />
     <Compile Include="GuidHelper.cs" />

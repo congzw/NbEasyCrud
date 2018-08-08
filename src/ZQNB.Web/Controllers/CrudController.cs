@@ -85,7 +85,7 @@ namespace ZQNB.Web.Controllers
         {
             ProcessMySelectListItems();
 
-            ViewBag.CrudViewModelMeta = GetCrudViewModelMeta();
+            //ViewBag.CrudViewModelMeta = GetCrudViewModelMeta();
             base.OnActionExecuting(filterContext);
         }
 
@@ -93,11 +93,11 @@ namespace ZQNB.Web.Controllers
 
         #region CrudViewModel Meta
 
-        private CrudViewModelMeta _meta;
-        protected virtual CrudViewModelMeta GetCrudViewModelMeta()
-        {
-            return _meta ?? (_meta = CrudViewModelMeta.Create(typeof(TViewModel), this.GetType()));
-        }
+        //private CrudViewModelMeta _meta;
+        //protected virtual CrudViewModelMeta GetCrudViewModelMeta()
+        //{
+        //    return _meta ?? (_meta = CrudViewModelMeta.Create(typeof(TViewModel), this.GetType()));
+        //}
 
         #endregion
 

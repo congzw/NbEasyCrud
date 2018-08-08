@@ -1,11 +1,9 @@
 ﻿@model dynamic
 @{
-    var meta = (CrudViewModelMeta)ViewBag.CrudViewModelMeta;
-    var classInfo = meta.ClassInfo;
-    //var classColumnInfos = classInfo.ColumnInfos;
-    var headMessage = string.Format("{0}：编辑", classInfo.Caption);
+    var displayName = this.ViewData.ModelMetadata.DisplayName;
+    var headMessage = string.Format("{0}：编辑", displayName);
     ViewBag.Title = headMessage;
-    var controllerName = meta.Controller;
+    var controllerName = this.GetControllerName();
 }
 <h2>@headMessage</h2>
 <hr />

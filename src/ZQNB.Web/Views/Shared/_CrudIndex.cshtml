@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<dynamic>
 @{
-    var meta = (CrudViewModelMeta)ViewBag.CrudViewModelMeta;
-    var classInfo = meta.ClassInfo;
-    ViewBag.Title = classInfo.Caption;
-    var headMessage = string.Format("{0}列表", classInfo.Caption);
-    var controllerName = meta.Controller;
-
     var modelItemType = MyModelHelper.GetTypeFromCollection(Model);
     var metadataForModelItem = ModelMetadataProviders.Current.GetMetadataForType(null, modelItemType);
+    
+    var displayName = metadataForModelItem.DisplayName;
+    ViewBag.Title = displayName;
+    var controllerName = this.GetControllerName();
+    var headMessage = string.Format("{0}：列表", displayName);
+
 }
 @*@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(metadataForModelItem.Properties))
 <hr/>*@

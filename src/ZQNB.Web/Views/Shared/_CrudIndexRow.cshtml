@@ -1,7 +1,6 @@
 ﻿@model dynamic
 @{
-    var meta = (CrudViewModelMeta)ViewBag.CrudViewModelMeta;
-    var controllerName = meta.Controller;
+    var controllerName = this.GetControllerName();
     var itemId = Model.Id;
 }
 <tr>
