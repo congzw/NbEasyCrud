@@ -14,6 +14,8 @@ namespace ZQNB.Web.Controllers
         where TViewModel : ICrudViewModel, new()
         where TEntity : INbEntity<Guid>
     {
+        #region MVC Logic
+
         public ActionResult Index()
         {
             var models = CallGetAll();
@@ -25,7 +27,7 @@ namespace ZQNB.Web.Controllers
             var viewModel = new TViewModel();
             return View("_Crud/Add", viewModel);
         }
-        
+
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult Add(TViewModel viewModel)
         {
@@ -49,7 +51,7 @@ namespace ZQNB.Web.Controllers
             var messageResult = CallDelete(id);
             return RedirectToAction("Index").WithMessageResult(messageResult);
         }
-        
+
         public ActionResult Edit(Guid id)
         {
             var viewModel = CallGet(id);
@@ -83,7 +85,9 @@ namespace ZQNB.Web.Controllers
             base.OnActionExecuting(filterContext);
         }
 
-        #region default impls
+        #endregion
+
+        #region CrudViewModel Meta
 
         private CrudViewModelMeta _meta;
         protected virtual CrudViewModelMeta GetCrudViewModelMeta()
@@ -91,9 +95,13 @@ namespace ZQNB.Web.Controllers
             return _meta ?? (_meta = CrudViewModelMeta.Create(typeof(TViewModel), this.GetType()));
         }
 
+        #endregion
+
+        #region default simple crud impls
+
         protected virtual IList<TViewModel> CallGetAll()
         {
-            var simpleRepository = GetRepository();
+            var simpleRepository = ResolveRepository();
             var entities = simpleRepository.Query<TEntity>().ToList();
             var vos = new List<TViewModel>();
             foreach (var entity in entities)
@@ -107,40 +115,45 @@ namespace ZQNB.Web.Controllers
 
         protected virtual TViewModel CallGet(Guid id)
         {
-            var simpleRepository = GetRepository();
+            var simpleRepository = ResolveRepository();
             var entity = simpleRepository.Get<TEntity>(id);
             if (entity == null)
             {
                 return default(TViewModel);
             }
-
             var viewModel = new TViewModel();
             entity.TryCopyTo(viewModel);
             return viewModel;
         }
-        protected virtual MessageResult CallAdd(TViewModel model)
+
+        protected virtual MessageResult CallAddValidate(TViewModel model)
         {
-            var messageResult = new MessageResult();
+            var validateResult = MessageResult.ValidateResult();
             if (model == null)
             {
-                messageResult.Message = "对象不能为空";
-                messageResult.Success = false;
-                return messageResult;
+                validateResult.Message = "对象不能为空";
+                return validateResult;
             }
 
-            ////mock errors
-            //var vo = model as IssueViewModel;
-            //if (vo != null && vo.Subject == "sss")
-            //{
-            //    messageResult.Message = "题目不能是: "+ vo.Subject;
-            //    messageResult.Success = false;
-            //    return messageResult;
-            //}
+            //override to add validate logic
+            validateResult.Success = true;
+            validateResult.Message = "OK";
+            return validateResult;
+        }
 
+        protected virtual MessageResult CallAdd(TViewModel model)
+        {
+            var callAddValidate = CallAddValidate(model);
+            if (!callAddValidate.Success)
+            {
+                return callAddValidate;
+            }
+
+            var messageResult = new MessageResult();
             var entity = CreateEntity();
             model.TryCopyTo(entity);
 
-            var simpleRepository = GetRepository();
+            var simpleRepository = ResolveRepository();
             simpleRepository.Add(entity);
 
             messageResult.Success = true;
@@ -149,16 +162,32 @@ namespace ZQNB.Web.Controllers
             return messageResult;
         }
 
-        protected virtual MessageResult CallDelete(Guid id)
+        protected virtual MessageResult CallDeleteValidate(Guid id)
         {
-            var messageResult = new MessageResult();
+            var validateResult = MessageResult.ValidateResult();
             if (id == Guid.Empty)
             {
-                messageResult.Message = "Id不能为空";
-                return messageResult;
+                validateResult.Message = "Id不能为空";
+                return validateResult;
             }
 
-            var simpleRepository = GetRepository();
+            //override to add validate logic
+            validateResult.Success = true;
+            validateResult.Message = "OK";
+            return validateResult;
+        }
+
+
+        protected virtual MessageResult CallDelete(Guid id)
+        {
+            var callDeleteValidate = CallDeleteValidate(id);
+            if (!callDeleteValidate.Success)
+            {
+                return callDeleteValidate;
+            }
+
+            var messageResult = new MessageResult();
+            var simpleRepository = ResolveRepository();
             var entity = simpleRepository.Get<TEntity>(id);
             if (entity == null)
             {
@@ -174,26 +203,33 @@ namespace ZQNB.Web.Controllers
             return messageResult;
         }
 
-        protected virtual MessageResult CallEdit(TViewModel model)
+        protected virtual MessageResult CallEditValidate(TViewModel model)
         {
-            var messageResult = new MessageResult();
+            var validateResult = MessageResult.ValidateResult();
             if (model == null)
             {
-                messageResult.Message = "对象不能为空";
-                messageResult.Success = false;
-                return messageResult;
+                validateResult.Message = "对象不能为空";
+                return validateResult;
             }
 
-            //mock errors
-            var vo = model as IssueViewModel;
-            if (vo != null && vo.Subject == "sss")
+            //override to add validate logic
+            validateResult.Success = true;
+            validateResult.Message = "OK";
+            return validateResult;
+        }
+
+
+        protected virtual MessageResult CallEdit(TViewModel model)
+        {
+            var callEditValidate = CallEditValidate(model);
+            if (!callEditValidate.Success)
             {
-                messageResult.Message = "题目不能是: " + vo.Subject;
-                messageResult.Success = false;
-                return messageResult;
+                return callEditValidate;
             }
 
-            var simpleRepository = GetRepository();
+            var messageResult = new MessageResult();
+
+            var simpleRepository = ResolveRepository();
             var theOne = simpleRepository.Get<TEntity>(model.Id);
             if (theOne == null)
             {
@@ -215,24 +251,16 @@ namespace ZQNB.Web.Controllers
             return this.GetType().Name.Replace("Controller", "");
         }
 
-        private static ISimpleRepository _simpleRepository;
-        private ISimpleRepository GetRepository()
+        private ISimpleRepository _simpleRepository = null;
+        protected virtual ISimpleRepository ResolveRepository()
         {
             if (_simpleRepository == null)
             {
-                var memeoryRepository = new MemeoryRepository();
-                
-                var guids = GuidHelper.CreateMockGuidQueue(10);
-                var issueViewModels = new List<IssueViewModel>();
-                for (int i = 0; i < 10; i++)
-                {
-                    issueViewModels.Add(new IssueViewModel() { Id = guids.Dequeue(), Subject = i.ToString("0000"), Body = "BODY..."});
-                }
-                memeoryRepository.InitFor(issueViewModels);
-                _simpleRepository = memeoryRepository;
+                //_simpleRepository = CoreServiceProvider.LocateService<ISimpleRepository>;
             }
             return _simpleRepository;
         }
+
         private TEntity CreateEntity()
         {
             return Activator.CreateInstance<TEntity>();
