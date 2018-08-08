@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ZQNB.Common.Cruds;
 using ZQNB.Common.Data;
@@ -28,7 +25,7 @@ namespace ZQNB.Web.Models
 
         [UIHint("MySelectListItem")]
         [Display(Name = "∑÷¿‡")]
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
 
         [Display(Name = "ƒ⁄»›")]
         public string Body { get; set; }

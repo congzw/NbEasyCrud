@@ -9,8 +9,8 @@
     var modelItemType = MyModelHelper.GetTypeFromCollection(Model);
     var metadataForModelItem = ModelMetadataProviders.Current.GetMetadataForType(null, modelItemType);
 }
-@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(metadataForModelItem.Properties))
-<hr/>
+@*@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(metadataForModelItem.Properties))
+<hr/>*@
 <h3>@headMessage</h3>
 <a href="@Url.Action("Add", controllerName)"
    class="btn btn-primary">
