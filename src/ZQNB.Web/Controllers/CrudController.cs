@@ -84,23 +84,11 @@ namespace ZQNB.Web.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             ProcessMySelectListItems();
-
-            //ViewBag.CrudViewModelMeta = GetCrudViewModelMeta();
             base.OnActionExecuting(filterContext);
         }
 
         #endregion
-
-        #region CrudViewModel Meta
-
-        //private CrudViewModelMeta _meta;
-        //protected virtual CrudViewModelMeta GetCrudViewModelMeta()
-        //{
-        //    return _meta ?? (_meta = CrudViewModelMeta.Create(typeof(TViewModel), this.GetType()));
-        //}
-
-        #endregion
-
+        
         #region default simple crud impls
 
         protected virtual IList<TViewModel> CallGetAll()
