@@ -11,12 +11,19 @@
 }
 @*@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(metadataForModelItem.Properties))
 <hr/>*@
+
+@*@{
+    var grid = new WebGrid(Model);
+    @grid.GetHtml();
+    <hr />
+}*@
 <h3>@headMessage</h3>
 <a href="@Url.Action("Add", controllerName)"
    class="btn btn-primary">
     创建
 </a>
-<hr />
+<hr/>
+
 <table class="table table-hover">
     <thead>
         @Html.Partial("_CrudIndexHeader", metadataForModelItem)
