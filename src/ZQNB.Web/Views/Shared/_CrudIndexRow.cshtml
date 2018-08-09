@@ -6,7 +6,10 @@
 <tr>
     @foreach (var prop in ViewData.ModelMetadata.Properties.Where(p => p.ShowForEdit))
     {
-        <td>@Html.Display(prop.PropertyName)</td>
+        if (!"HiddenInput".Equals(prop.TemplateHint, StringComparison.OrdinalIgnoreCase))
+        {
+            <td>@Html.Display(prop.PropertyName)</td>
+        }
     }
     <td>
         <span style="float: left">
@@ -15,7 +18,7 @@
             </a>
         </span>
         <span style="float: left">
-            @using (Html.BeginForm("Delete", controllerName, new {id = itemId}, FormMethod.Post, new {@class = "delete-form"}))
+            @using (Html.BeginForm("Delete", controllerName, new { id = itemId }, FormMethod.Post, new { @class = "delete-form" }))
             {
                 @Html.AntiForgeryToken()
                 <button type="submit" class="btn btn-sm btn-warning"><i class="ace-icon fa fa-trash-o"></i>删除</button>

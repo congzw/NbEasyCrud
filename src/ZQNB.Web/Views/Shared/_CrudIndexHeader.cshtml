@@ -1,8 +1,13 @@
 ﻿@model ModelMetadata
+@*@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Properties.First()))
+<hr/>*@
 <tr>
     @foreach (var prop in Model.Properties.Where(p => p.ShowForEdit))
     {
-        <th>@prop.DisplayName</th>
+        if (!"HiddenInput".Equals(prop.TemplateHint, StringComparison.OrdinalIgnoreCase))
+        {
+            <th>@prop.DisplayName</th>
+        }
     }
     <th>操作</th>
 </tr>
